@@ -2,14 +2,15 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
-    namespace = "com.muskandigital.ecommerce_kotlin"
+    namespace = "com.rasel.ecommerce_kotlin"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.muskandigital.ecommerce_kotlin"
+        applicationId = "com.rasel.ecommerce_kotlin"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
@@ -49,6 +50,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.database)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,4 +61,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.coil.kt.compose)
+    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.accompanist.pager)
+    //implementation(libs.runtime.livedata)
+    implementation(libs.glide)
+    implementation(libs.gson)
+    implementation(libs.constraintlayout.compose)
+    implementation(libs.compose.foundation)
+    implementation("androidx.compose.ui:ui-tooling:1.8.2")
 }
