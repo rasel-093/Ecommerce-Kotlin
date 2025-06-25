@@ -1,7 +1,10 @@
 package com.rasel.ecommerce_kotlin
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Space
 import androidx.activity.compose.setContent
+import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -54,7 +57,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.rasel.ecommerce_kotlin.model.CategoryModel
+import com.rasel.ecommerce_kotlin.model.ItemModel
 import com.rasel.ecommerce_kotlin.model.SliderModel
+import com.rasel.ecommerce_kotlin.screens.ListItems
 import com.rasel.ecommerce_kotlin.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity() {
@@ -75,8 +80,11 @@ fun MainActivityScreen() {
     val viewmodel = MainViewModel()
     val banners = remember { mutableStateListOf<SliderModel>() }
     val categories = remember { mutableStateListOf<CategoryModel>() }
+    val recommends = remember { mutableStateListOf<ItemModel>() }
+
     var showBannerLoading by remember { mutableStateOf(true) }
     var showCategoryLoading by remember { mutableStateOf(true) }
+    var showRecommendLoading by remember { mutableStateOf(true) }
 
 
     //Load banner
@@ -94,6 +102,14 @@ fun MainActivityScreen() {
             categories.clear()
             categories.addAll(it)
             showCategoryLoading = false
+        }
+    }
+    LaunchedEffect(Unit) {
+        viewmodel.loadRecommend()
+        viewmodel.recommends.observeForever {
+            recommends.clear()
+            recommends.addAll(it)
+            showRecommendLoading = false
         }
     }
 
@@ -176,6 +192,26 @@ fun MainActivityScreen() {
                 }else{
                     CategoryList(categories)
                 }
+            }
+            item{
+                SectionTitle(title = "Recommendations", actionText = "See All")
+            }
+            item {
+                if (showRecommendLoading){
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }else{
+                    ListItems(recommends)
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(100.dp))
             }
         }
     }
