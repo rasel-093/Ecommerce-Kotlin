@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.rasel.ecommerce_kotlin.model.CategoryModel
 
 @Composable
-fun CategoryList(categories: SnapshotStateList<CategoryModel>) {
+fun CategoryList(categories: SnapshotStateList<CategoryModel>, onItemClick: (Int)-> Unit) {
     var selectedIndex by remember { mutableStateOf(-1) }
     LazyRow(
         modifier = Modifier
@@ -27,6 +27,7 @@ fun CategoryList(categories: SnapshotStateList<CategoryModel>) {
                 isSelected = index == selectedIndex,
                 onItemClick = {
                     selectedIndex = index
+                    onItemClick(index)
                 }
             )
         }

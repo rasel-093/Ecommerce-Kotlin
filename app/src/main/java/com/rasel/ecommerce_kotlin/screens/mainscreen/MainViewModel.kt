@@ -17,10 +17,12 @@ class MainViewModel: ViewModel() {
     private val _banner = MutableLiveData<List<SliderModel>>()
     private val _categories = MutableLiveData<List<CategoryModel>>()
     private val _recommend = MutableLiveData<List<ItemModel>>()
+    private val _filteredProducts = MutableLiveData<List<ItemModel>>()
 
     val banner: LiveData<List<SliderModel>> = _banner
     val categories: LiveData<List<CategoryModel>> = _categories
     val recommends: LiveData<List<ItemModel>> = _recommend
+    val filteredProducts: LiveData<List<ItemModel>> = _filteredProducts
 
     fun loadRecommend(){
         val recommendRef = firebaseDb.getReference("Items")
@@ -41,7 +43,29 @@ class MainViewModel: ViewModel() {
                 TODO("Not yet implemented")
             }
         })
-        }
+    }
+
+    fun loadProductByCategory(id: String){
+        val recommendRef = firebaseDb.getReference("Items")
+        val query: Query = recommendRef.orderByChild("categoryId").equalTo(id)
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lists = mutableListOf<ItemModel>()
+                for (dataSnapshot in snapshot.children) {
+                    val listItem = dataSnapshot.getValue(ItemModel::class.java)
+                    if (listItem != null) {
+                        lists.add(listItem)
+                    }
+                }
+                _filteredProducts.value = lists
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
     fun loadBanners(){
         val bannerRef = firebaseDb.getReference("Banner")
 

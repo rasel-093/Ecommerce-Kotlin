@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -49,10 +50,16 @@ fun MainActivityScreen() {
     val banners = remember { mutableStateListOf<SliderModel>() }
     val categories = remember { mutableStateListOf<CategoryModel>() }
     val recommends = remember { mutableStateListOf<ItemModel>() }
+    val filteredProduct = remember { mutableStateListOf<ItemModel>() }
 
     var showBannerLoading by remember { mutableStateOf(true) }
     var showCategoryLoading by remember { mutableStateOf(true) }
     var showRecommendLoading by remember { mutableStateOf(true) }
+    var showProductLoading by remember { mutableStateOf(true) }
+    var selectedCategoryId by remember { mutableStateOf("") }
+
+    val products by viewmodel.filteredProducts.observeAsState()
+
 
 
     //Load banner
@@ -78,6 +85,14 @@ fun MainActivityScreen() {
             recommends.clear()
             recommends.addAll(it)
             showRecommendLoading = false
+        }
+    }
+    LaunchedEffect(selectedCategoryId){
+        viewmodel.loadProductByCategory(selectedCategoryId)
+        viewmodel.filteredProducts.observeForever{
+            filteredProduct.clear()
+            filteredProduct.addAll(it)
+            showProductLoading = false
         }
     }
 
@@ -158,11 +173,10 @@ fun MainActivityScreen() {
                         CircularProgressIndicator()
                     }
                 }else{
-                    CategoryList(categories)
+                    CategoryList(categories){
+                        selectedCategoryId = it.toString()
+                    }
                 }
-            }
-            item{
-                SectionTitle(title = "Recommendations", actionText = "See All")
             }
             item {
                 if (showRecommendLoading){
@@ -175,7 +189,27 @@ fun MainActivityScreen() {
                         CircularProgressIndicator()
                     }
                 }else{
-                    ListItems(recommends)
+                    if (selectedCategoryId.isEmpty()){
+                        SectionTitle(title = "Recommendations", actionText = "See All")
+                        ListItems(recommends)
+                    }
+                }
+            }
+            item {
+                if (selectedCategoryId.isNotEmpty()){
+                    if (showProductLoading){
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
+                    }else{
+                        SectionTitle(title = "Products", actionText = "See All")
+                        ListItems(filteredProduct)
+                    }
                 }
             }
             item {
