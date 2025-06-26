@@ -1,4 +1,4 @@
-package com.rasel.ecommerce_kotlin.viewmodel
+package com.rasel.ecommerce_kotlin.screens.mainscreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.core.view.QuerySpec
 import com.rasel.ecommerce_kotlin.model.CategoryModel
 import com.rasel.ecommerce_kotlin.model.ItemModel
 import com.rasel.ecommerce_kotlin.model.SliderModel
