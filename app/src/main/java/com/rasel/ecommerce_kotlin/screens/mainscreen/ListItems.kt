@@ -64,7 +64,9 @@ fun ItemCard(item: ItemModel, index: Int) {
             modifier = Modifier
                 .width(175.dp)
                 .height(175.dp)
-                .clickable {  }
+                .clickable {
+                    //Navigate to Product details screen with selected product index
+                }
                 .background(colorResource(R.color.lightGrey), shape = RoundedCornerShape(10.dp))
                 .padding(8.dp),
             contentScale = ContentScale.Inside
