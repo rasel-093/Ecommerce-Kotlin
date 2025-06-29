@@ -24,6 +24,7 @@ appcompat = "1.6.1"
 material = "1.10.0"
 activity = "1.10.1"
 runtimeLivedata = "1.8.3"
+nav_version = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "nav_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -71,5 +71,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.constraintlayout.compose)
     implementation(libs.compose.foundation)
+    implementation(libs.compose.navigation)
     implementation("androidx.compose.ui:ui-tooling:1.8.2")
 }

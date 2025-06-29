@@ -3,6 +3,7 @@ package com.rasel.ecommerce_kotlin.screens.navigations
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -14,11 +15,11 @@ import com.rasel.ecommerce_kotlin.R
 
 @Composable
 fun BottomNavBar(
-    modifier: Modifier = Modifier,
-    onItemClick: ()->Unit
+    selectedRoute: String,
+    onItemClick: (String)->Unit
 ) {
     Row(
-        modifier = modifier
+        modifier = Modifier.fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 32.dp)
             .background(
                 color = colorResource(R.color.purple),
@@ -31,7 +32,8 @@ fun BottomNavBar(
             BottomNavBarItem(
                 icon = painterResource(it.icon),
                 text = it.title,
-                onItemClick = onItemClick
+                onItemClick = { onItemClick(it.route) },
+                selected = selectedRoute == it.route
             )
         }
     }

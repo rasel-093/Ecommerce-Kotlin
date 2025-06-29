@@ -8,10 +8,10 @@ sealed class BottomNavRoute(
     @DrawableRes val icon: Int,
     val title: String
 ){
-    object Home: BottomNavRoute("home", R.drawable.btn_1, "Explorer")
-    object Cart: BottomNavRoute("search", R.drawable.btn_2, "Cart")
-    object Favorite: BottomNavRoute("cart", R.drawable.btn_3, "Favorite")
-    object Orders: BottomNavRoute("cart", R.drawable.btn_4, "Orders")
+    object Home: BottomNavRoute("explorer", R.drawable.btn_1, "Explorer")
+    object Cart: BottomNavRoute("cart", R.drawable.btn_2, "Cart")
+    object Favorite: BottomNavRoute("favorite", R.drawable.btn_3, "Favorite")
+    object Orders: BottomNavRoute("orders", R.drawable.btn_4, "Orders")
     object Profile: BottomNavRoute("profile", R.drawable.btn_5, "Profile")
 
     companion object{

@@ -1,6 +1,5 @@
 package com.rasel.ecommerce_kotlin.screens.productdetails
 
-import android.widget.RatingBar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -41,7 +40,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.project1762.Helper.ManagementCart
 import com.rasel.ecommerce_kotlin.R

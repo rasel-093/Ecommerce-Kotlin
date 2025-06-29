@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,10 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rasel.ecommerce_kotlin.R
 import com.rasel.ecommerce_kotlin.model.CategoryModel
@@ -40,12 +39,10 @@ import com.rasel.ecommerce_kotlin.model.SliderModel
 import com.rasel.ecommerce_kotlin.screens.mainscreen.banner.AutoSlidingCarousel
 import com.rasel.ecommerce_kotlin.screens.mainscreen.banner.SectionTitle
 import com.rasel.ecommerce_kotlin.screens.mainscreen.category.CategoryList
-import com.rasel.ecommerce_kotlin.screens.navigations.BottomNavBar
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-@Preview
-fun MainActivityScreen() {
+fun ExplorerScreen(navController: NavHostController) {
     val viewmodel = MainViewModel()
     val banners = remember { mutableStateListOf<SliderModel>() }
     val categories = remember { mutableStateListOf<CategoryModel>() }
@@ -57,9 +54,6 @@ fun MainActivityScreen() {
     var showRecommendLoading by remember { mutableStateOf(true) }
     var showProductLoading by remember { mutableStateOf(true) }
     var selectedCategoryId by remember { mutableStateOf("") }
-
-    val products by viewmodel.filteredProducts.observeAsState()
-
 
 
     //Load banner
@@ -216,15 +210,5 @@ fun MainActivityScreen() {
                 Spacer(modifier = Modifier.height(100.dp))
             }
         }
-        BottomNavBar(
-            modifier = Modifier
-                .fillMaxWidth()
-                .constrainAs(bottomMenu) {
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                },
-            onItemClick = {}
-        )
     }
 }
